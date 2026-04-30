@@ -37,7 +37,7 @@ export function WeeklyChart() {
               borderRadius: 12,
               fontSize: 12,
             }}
-            formatter={(v: number) => [`${v} kcal`, "Calories"]}
+            formatter={(v) => [`${v} kcal`, "Calories"] as [string, string]}
           />
           <Bar dataKey="calories" fill="var(--primary)" radius={[6, 6, 0, 0]} />
         </BarChart>
