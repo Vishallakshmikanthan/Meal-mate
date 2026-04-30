@@ -9,8 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ScanRouteImport } from './routes/scan'
+import { Route as PreOrderRouteImport } from './routes/pre-order'
+import { Route as MenuRouteImport } from './routes/menu'
+import { Route as MealLogRouteImport } from './routes/meal-log'
 import { Route as IndexRouteImport } from './routes/index'
 
+const ScanRoute = ScanRouteImport.update({
+  id: '/scan',
+  path: '/scan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreOrderRoute = PreOrderRouteImport.update({
+  id: '/pre-order',
+  path: '/pre-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MenuRoute = MenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MealLogRoute = MealLogRouteImport.update({
+  id: '/meal-log',
+  path: '/meal-log',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +43,72 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/meal-log': typeof MealLogRoute
+  '/menu': typeof MenuRoute
+  '/pre-order': typeof PreOrderRoute
+  '/scan': typeof ScanRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/meal-log': typeof MealLogRoute
+  '/menu': typeof MenuRoute
+  '/pre-order': typeof PreOrderRoute
+  '/scan': typeof ScanRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/meal-log': typeof MealLogRoute
+  '/menu': typeof MenuRoute
+  '/pre-order': typeof PreOrderRoute
+  '/scan': typeof ScanRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
+  id: '__root__' | '/' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MealLogRoute: typeof MealLogRoute
+  MenuRoute: typeof MenuRoute
+  PreOrderRoute: typeof PreOrderRoute
+  ScanRoute: typeof ScanRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/scan': {
+      id: '/scan'
+      path: '/scan'
+      fullPath: '/scan'
+      preLoaderRoute: typeof ScanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pre-order': {
+      id: '/pre-order'
+      path: '/pre-order'
+      fullPath: '/pre-order'
+      preLoaderRoute: typeof PreOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/menu': {
+      id: '/menu'
+      path: '/menu'
+      fullPath: '/menu'
+      preLoaderRoute: typeof MenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meal-log': {
+      id: '/meal-log'
+      path: '/meal-log'
+      fullPath: '/meal-log'
+      preLoaderRoute: typeof MealLogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +121,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MealLogRoute: MealLogRoute,
+  MenuRoute: MenuRoute,
+  PreOrderRoute: PreOrderRoute,
+  ScanRoute: ScanRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
