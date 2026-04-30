@@ -63,28 +63,27 @@ function PreOrderPage() {
     <div className="px-5 sm:px-8 lg:px-12 py-8 lg:py-12 max-w-[1400px] mx-auto">
       <header className="mb-8 flex items-end justify-between flex-wrap gap-4">
         <div>
-          <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
-            Tomorrow · {tomorrow}
+          <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-muted-foreground bg-card border border-border rounded-full px-3 py-1.5">
+            <span className="size-1.5 rounded-full bg-[var(--accent)]" /> Tomorrow · {tomorrow}
           </div>
-          <h1 className="font-display text-4xl sm:text-5xl mt-2">Plan your plate.</h1>
-          <p className="text-muted-foreground mt-2 max-w-xl">
+          <h1 className="font-display text-4xl sm:text-6xl mt-4 leading-[1.05] text-gradient">Plan your plate.</h1>
+          <p className="text-muted-foreground mt-3 max-w-xl">
             Select what you intend to eat. We'll project your day's calories and you can save it as
             a personal pre-order.
           </p>
         </div>
 
-        {/* Sticky summary on mobile becomes inline header on desktop */}
-        <div className="rounded-2xl bg-card border border-border p-4 ink-shadow flex items-center gap-5">
+        <div className="rounded-2xl bg-card border border-border p-4 ink-shadow flex items-center gap-5 ring-gradient">
           <div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
               Projected
             </div>
-            <div className="font-display text-3xl">{totals.calories}</div>
+            <div className="font-display text-3xl tabular-nums">{totals.calories}</div>
             <div className="text-[10px] text-muted-foreground">kcal · P {totals.protein}g</div>
           </div>
           <button
             onClick={save}
-            className="px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-medium flex items-center gap-2 hover:opacity-90"
+            className="px-4 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold flex items-center gap-2 hover:bg-primary/90 transition glow-shadow"
           >
             {saved ? (
               <>

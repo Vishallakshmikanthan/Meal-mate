@@ -22,11 +22,13 @@ function MenuPage() {
 
   return (
     <div className="px-5 sm:px-8 lg:px-12 py-8 lg:py-12 max-w-[1400px] mx-auto">
-      <header className="mb-6">
-        <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Mess menu</div>
-        <h1 className="font-display text-4xl sm:text-5xl mt-2">A week of plates.</h1>
-        <p className="text-muted-foreground mt-2 max-w-xl">
-          Calories and macros are pre-computed from your hostel menu. Tap any dish to add it to today's log.
+      <header className="mb-8">
+        <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-muted-foreground bg-card border border-border rounded-full px-3 py-1.5">
+          <span className="size-1.5 rounded-full bg-[var(--leaf)]" /> Mess menu
+        </div>
+        <h1 className="font-display text-4xl sm:text-6xl mt-4 leading-[1.05] text-gradient">A week of plates.</h1>
+        <p className="text-muted-foreground mt-3 max-w-xl">
+          Calories and macros pre-computed from your hostel menu. Tap any dish to add it to today's log.
         </p>
       </header>
 

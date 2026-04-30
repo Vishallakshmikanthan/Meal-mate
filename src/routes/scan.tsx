@@ -57,15 +57,15 @@ function ScanPage() {
   return (
     <div className="px-5 sm:px-8 lg:px-12 py-8 lg:py-12 max-w-5xl mx-auto">
       <header className="mb-8">
-        <div className="text-xs uppercase tracking-[0.22em] text-muted-foreground">
-          AI Food Scanner
+        <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-muted-foreground bg-card border border-border rounded-full px-3 py-1.5">
+          <Sparkles className="size-3 text-[var(--accent)]" /> AI Food Scanner
         </div>
-        <h1 className="font-display text-4xl sm:text-5xl mt-2">
+        <h1 className="font-display text-4xl sm:text-6xl mt-4 leading-[1.05] text-gradient">
           Point. Shoot. <span className="italic">Know.</span>
         </h1>
-        <p className="text-muted-foreground mt-2 max-w-xl">
+        <p className="text-muted-foreground mt-3 max-w-xl">
           MobileNet runs locally in your browser to identify food, then we look up nutrition from{" "}
-          <span className="font-medium">Open Food Facts</span>. Nothing leaves your device unless we
+          <span className="font-semibold text-foreground">Open Food Facts</span>. Nothing leaves your device unless we
           query the public food database.
         </p>
       </header>
