@@ -35,20 +35,28 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "fixed z-50 bottom-20 lg:bottom-6 right-6 size-14 rounded-full leaf-gradient text-primary-foreground shadow-lg flex items-center justify-center transition-transform hover:scale-105",
+          "fixed z-50 bottom-20 lg:bottom-6 right-6 size-14 rounded-full leaf-gradient text-primary-foreground glow-shadow flex items-center justify-center transition-all hover:scale-110 ring-4 ring-[var(--leaf)]/15",
         )}
         aria-label="Open mess assistant"
       >
         {open ? <X className="size-5" /> : <MessageCircle className="size-6" />}
+        {!open && (
+          <span className="absolute -top-0.5 -right-0.5 size-3 rounded-full bg-[var(--accent)] border-2 border-background animate-pulse" />
+        )}
       </button>
 
       {open && (
-        <div className="fixed z-50 bottom-36 lg:bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 max-h-[70vh] rounded-2xl bg-card border border-border ink-shadow flex flex-col overflow-hidden">
-          <div className="px-4 py-3 leaf-gradient text-primary-foreground flex items-center gap-2">
-            <Sparkles className="size-4" />
-            <div>
+        <div className="fixed z-50 bottom-36 lg:bottom-24 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 max-h-[70vh] rounded-3xl glass border border-border ink-shadow flex flex-col overflow-hidden animate-scale-in">
+          <div className="relative px-4 py-3.5 leaf-gradient text-primary-foreground flex items-center gap-2.5 overflow-hidden">
+            <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_top_right,white,transparent_60%)]" />
+            <div className="relative size-8 rounded-lg bg-white/15 backdrop-blur flex items-center justify-center ring-1 ring-white/20">
+              <Sparkles className="size-4" />
+            </div>
+            <div className="relative">
               <div className="font-display text-base leading-tight">Mess Assistant</div>
-              <div className="text-[10px] opacity-80">Powered by your menu, no AI bills</div>
+              <div className="text-[10px] opacity-80 flex items-center gap-1">
+                <span className="size-1.5 rounded-full bg-[var(--accent)]" /> Online · powered by your menu
+              </div>
             </div>
           </div>
 

@@ -13,31 +13,40 @@ export function NutritionRing() {
 
   return (
     <div className="relative w-full aspect-square max-w-[260px] mx-auto">
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="var(--leaf)" />
+            <stop offset="100%" stopColor="var(--primary)" />
+          </linearGradient>
+        </defs>
+      </svg>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={data}
-            innerRadius="72%"
-            outerRadius="92%"
+            innerRadius="74%"
+            outerRadius="94%"
             startAngle={90}
             endAngle={-270}
             dataKey="value"
             stroke="none"
+            cornerRadius={8}
           >
-            <Cell fill="var(--primary)" />
+            <Cell fill="url(#ringGrad)" />
             <Cell fill="var(--muted)" />
           </Pie>
         </PieChart>
       </ResponsiveContainer>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-        <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+        <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           Today
         </div>
-        <div className="font-display text-5xl font-medium tabular-nums mt-1">
+        <div className="font-display text-5xl tabular-nums mt-1">
           {totals.calories}
         </div>
-        <div className="text-xs text-muted-foreground">of {goals.calories} kcal</div>
-        <div className="text-[10px] mt-2 px-2 py-0.5 rounded-full bg-secondary">
+        <div className="text-xs text-muted-foreground mt-0.5">of {goals.calories} kcal</div>
+        <div className="text-[10px] mt-2.5 px-2.5 py-1 rounded-full bg-[var(--leaf)]/10 text-[var(--leaf)] font-semibold border border-[var(--leaf)]/20">
           {pct}% of goal
         </div>
       </div>
