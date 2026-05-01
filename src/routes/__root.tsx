@@ -43,6 +43,13 @@ export const Route = createRootRoute({
         content: "Mess menu, AI food scanner, and meal log — all in one app.",
       },
       { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "MealOps — Smart Mess Companion" },
+      { name: "description", content: "Meal Mate is a free, client-side application for tracking daily meals and nutrition." },
+      { property: "og:description", content: "Meal Mate is a free, client-side application for tracking daily meals and nutrition." },
+      { name: "twitter:description", content: "Meal Mate is a free, client-side application for tracking daily meals and nutrition." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/41ce2c70-3a56-4edc-9b78-fb317ab2b451/id-preview-da98d77f--41814868-3f06-447e-9268-3ea45ca20db0.lovable.app-1777544124060.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/41ce2c70-3a56-4edc-9b78-fb317ab2b451/id-preview-da98d77f--41814868-3f06-447e-9268-3ea45ca20db0.lovable.app-1777544124060.png" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
