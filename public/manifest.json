@@ -1,0 +1,16 @@
+{
+  "name": "MealOps",
+  "short_name": "MealOps",
+  "description": "Smart mess companion for Sri Sairam College — track nutrition, scan food, and pre-order meals.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1a3a0a",
+  "background_color": "#F5F2EC",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

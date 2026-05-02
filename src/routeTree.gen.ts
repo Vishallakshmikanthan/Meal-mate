@@ -13,6 +13,7 @@ import { Route as ScanRouteImport } from './routes/scan'
 import { Route as PreOrderRouteImport } from './routes/pre-order'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as MealLogRouteImport } from './routes/meal-log'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as IndexRouteImport } from './routes/index'
 
 const ScanRoute = ScanRouteImport.update({
@@ -35,6 +36,11 @@ const MealLogRoute = MealLogRouteImport.update({
   path: '/meal-log',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -43,6 +49,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
   '/pre-order': typeof PreOrderRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
   '/pre-order': typeof PreOrderRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/chat': typeof ChatRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
   '/pre-order': typeof PreOrderRoute
@@ -65,14 +74,22 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
+  fullPaths: '/' | '/chat' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
-  id: '__root__' | '/' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
+  to: '/' | '/chat' | '/meal-log' | '/menu' | '/pre-order' | '/scan'
+  id:
+    | '__root__'
+    | '/'
+    | '/chat'
+    | '/meal-log'
+    | '/menu'
+    | '/pre-order'
+    | '/scan'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ChatRoute: typeof ChatRoute
   MealLogRoute: typeof MealLogRoute
   MenuRoute: typeof MenuRoute
   PreOrderRoute: typeof PreOrderRoute
@@ -109,6 +126,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MealLogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -121,6 +145,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ChatRoute: ChatRoute,
   MealLogRoute: MealLogRoute,
   MenuRoute: MenuRoute,
   PreOrderRoute: PreOrderRoute,
@@ -129,12 +154,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
