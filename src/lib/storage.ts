@@ -125,6 +125,61 @@ const DEFAULT_GOALS: UserGoals = {
   fiber: 30,
 };
 
+export interface ScanHistoryEntry {
+  id: string;
+  timestamp: number;
+  name: string;
+  source: "menu" | "api" | "fallback";
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+  confidence?: number;
+  thumbnail?: string;
+}
+
+const SCAN_HISTORY_KEY = "scan_history";
+const SCAN_HISTORY_LIMIT = 20;
+
+export function getScanHistory(): ScanHistoryEntry[] {
+  if (!isBrowser()) return [];
+  try {
+    return JSON.parse(localStorage.getItem(SCAN_HISTORY_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+export function addScanToHistory(entry: Omit<ScanHistoryEntry, "id" | "timestamp">) {
+  if (!isBrowser()) return;
+  const history = getScanHistory();
+  const next: ScanHistoryEntry = {
+    ...entry,
+    id:
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : Math.random().toString(36).slice(2),
+    timestamp: Date.now(),
+  };
+  const trimmed = [next, ...history].slice(0, SCAN_HISTORY_LIMIT);
+  localStorage.setItem(SCAN_HISTORY_KEY, JSON.stringify(trimmed));
+  window.dispatchEvent(new Event("mealops:update"));
+}
+
+export function deleteScanFromHistory(id: string) {
+  if (!isBrowser()) return;
+  const next = getScanHistory().filter((e) => e.id !== id);
+  localStorage.setItem(SCAN_HISTORY_KEY, JSON.stringify(next));
+  window.dispatchEvent(new Event("mealops:update"));
+}
+
+export function clearScanHistory() {
+  if (!isBrowser()) return;
+  localStorage.removeItem(SCAN_HISTORY_KEY);
+  window.dispatchEvent(new Event("mealops:update"));
+}
+
 export function getUserGoals(): UserGoals {
   if (!isBrowser()) return DEFAULT_GOALS;
   try {
