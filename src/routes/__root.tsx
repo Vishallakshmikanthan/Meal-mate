@@ -1,7 +1,10 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouter } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { PageTransition } from "@/components/PageTransition";
 import { Toaster } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { AuthPill } from "@/components/AuthPill";
 
 import appCss from "../styles.css?url";
 
@@ -90,8 +93,18 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const router = useRouter();
+  useEffect(() => {
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") {
+        router.invalidate();
+      }
+    });
+    return () => sub.subscription.unsubscribe();
+  }, [router]);
   return (
     <div className="relative min-h-dvh">
+      <AuthPill />
       <main className="pb-28 pt-safe px-safe">
         <PageTransition>
           <Outlet />

@@ -33,13 +33,17 @@ function Dashboard() {
     return () => window.removeEventListener("mealops:update", update);
   }, []);
 
-  const greeting =
-    new Date().getHours() < 12 ? "Good morning"
-    : new Date().getHours() < 17 ? "Good afternoon"
-    : "Good evening";
-  const dateLabel = new Date().toLocaleDateString("en-US", {
-    weekday: "long", day: "numeric", month: "long",
-  });
+  // Compute greeting/date on the client only to avoid SSR hydration mismatch
+  // (server clock/timezone can differ from the user's).
+  const [greeting, setGreeting] = useState("Hello");
+  const [dateLabel, setDateLabel] = useState("");
+  useEffect(() => {
+    const h = new Date().getHours();
+    setGreeting(h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening");
+    setDateLabel(
+      new Date().toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "long" }),
+    );
+  }, []);
 
   // Group log by meal
   const grouped = MEAL_TYPES.reduce<Record<MealType, typeof log>>((acc, m) => {
