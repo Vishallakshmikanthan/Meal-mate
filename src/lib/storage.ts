@@ -1,4 +1,5 @@
 import type { MenuItem, MealType } from "./menuData";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface MealLog {
   id: string;
@@ -58,6 +59,33 @@ export function logMeal(mealType: MealType, items: MenuItem[]) {
   existing.push(entry);
   localStorage.setItem(key, JSON.stringify(existing));
   window.dispatchEvent(new Event("mealops:update"));
+
+  // Sync to server when signed in so MCP tools see the same logs.
+  void syncEntryToServer(mealType, items, date);
+}
+
+async function syncEntryToServer(mealType: MealType, items: MenuItem[], date: string) {
+  try {
+    const { data } = await supabase.auth.getSession();
+    const userId = data.session?.user?.id;
+    if (!userId) return;
+    await supabase.from("meal_logs").insert(
+      items.map((i) => ({
+        user_id: userId,
+        log_date: date,
+        meal_type: mealType,
+        item_name: i.name,
+        calories: i.calories,
+        protein: i.protein,
+        carbs: i.carbs,
+        fat: i.fat,
+        fiber: i.fiber,
+        source: "app",
+      })),
+    );
+  } catch {
+    /* offline / not signed in — localStorage remains source of truth */
+  }
 }
 
 export function deleteMealLog(date: string, id: string) {
