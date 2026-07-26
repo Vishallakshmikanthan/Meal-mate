@@ -28,17 +28,21 @@ function AuthPage() {
   const navigate = useNavigate();
   const { next } = useSearch({ from: "/auth" });
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [role, setRoleLocal] = useState<Role>("student");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const returnTo = isSafeNext(next) ? next : "/";
+  useEffect(() => { setRoleLocal(getRole()); }, []);
+
+  const safeNext = isSafeNext(next) ? next : "";
+  const destination = () => safeNext || homeForRole(role);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) window.location.href = returnTo;
+      if (data.session) window.location.href = safeNext || homeForRole(getRole());
     });
-  }, [returnTo]);
+  }, [safeNext]);
 
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
