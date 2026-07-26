@@ -106,6 +106,37 @@ function AuthPage() {
           </p>
         </div>
 
+        <div className="mb-4">
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 text-center">
+            I am a
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {([
+              { key: "student", label: "Student", Icon: GraduationCap, desc: "Track meals" },
+              { key: "provider", label: "Food Provider", Icon: ChefHat, desc: "Manage mess" },
+            ] as const).map(({ key, label, Icon, desc }) => {
+              const active = role === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setRoleLocal(key)}
+                  className={`rounded-2xl border p-3 text-left transition min-tap ${
+                    active
+                      ? "border-primary bg-primary/5 ring-2 ring-primary/30"
+                      : "border-border bg-card hover:bg-muted/40"
+                  }`}
+                >
+                  <Icon className={`size-4 mb-1 ${active ? "text-primary" : "text-muted-foreground"}`} />
+                  <div className="text-[13px] font-semibold">{label}</div>
+                  <div className="text-[10px] text-muted-foreground">{desc}</div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+
         <button
           onClick={handleGoogle}
           disabled={busy}
