@@ -53,7 +53,7 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth?next=${encodeURIComponent(returnTo)}`,
+            emailRedirectTo: `${window.location.origin}/auth?next=${encodeURIComponent(destination())}`,
           },
         });
         if (error) throw error;
@@ -61,7 +61,8 @@ function AuthPage() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        window.location.href = returnTo;
+        setRole(role);
+        window.location.href = destination();
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Auth failed");
@@ -73,8 +74,9 @@ function AuthPage() {
   async function handleGoogle() {
     setBusy(true);
     try {
+      setRole(role);
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: `${window.location.origin}/auth?next=${encodeURIComponent(returnTo)}`,
+        redirect_uri: `${window.location.origin}/auth?next=${encodeURIComponent(destination())}`,
       });
       if (result.error) {
         toast.error(result.error.message || "Google sign-in failed");
@@ -82,7 +84,7 @@ function AuthPage() {
         return;
       }
       if (result.redirected) return;
-      window.location.href = returnTo;
+      window.location.href = destination();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Google sign-in failed");
       setBusy(false);
