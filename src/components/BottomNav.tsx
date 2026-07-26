@@ -1,8 +1,9 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, CalendarDays, Camera, ClipboardList, MessageCircle } from "lucide-react";
+import { Home, CalendarDays, Camera, ClipboardList, MessageCircle, LayoutDashboard, Utensils, Package } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRole } from "@/hooks/useRole";
 
-const tabs = [
+const studentTabs = [
   { to: "/", label: "Home", icon: Home },
   { to: "/menu", label: "Menu", icon: CalendarDays },
   { to: "/scan", label: "Scan", icon: Camera, accent: true },
@@ -10,14 +11,24 @@ const tabs = [
   { to: "/chat", label: "Chat", icon: MessageCircle },
 ] as const;
 
+const providerTabs = [
+  { to: "/provider", label: "Overview", icon: LayoutDashboard },
+  { to: "/provider/menu", label: "Menu", icon: Utensils },
+  { to: "/provider/orders", label: "Orders", icon: Package, accent: true },
+  { to: "/chat", label: "Chat", icon: MessageCircle },
+] as const;
+
 export function BottomNav() {
   const { pathname } = useLocation();
+  const role = useRole();
+  const tabs = role === "provider" ? providerTabs : studentTabs;
+  const gridCols = tabs.length === 5 ? "grid-cols-5" : "grid-cols-4";
   return (
     <nav
       className="fixed bottom-0 inset-x-0 z-40 glass border-t border-border pb-safe px-safe"
       aria-label="Primary navigation"
     >
-      <div className="grid grid-cols-5 max-w-2xl mx-auto">
+      <div className={cn("grid max-w-2xl mx-auto", gridCols)}>
         {tabs.map(({ to, label, icon: Icon, ...rest }) => {
           const accent = "accent" in rest && rest.accent;
           const active = pathname === to;
