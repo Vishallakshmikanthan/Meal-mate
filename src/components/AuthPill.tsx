@@ -13,6 +13,7 @@ export function AuthPill() {
     return (
       <Link
         to="/auth"
+        search={{ next: "" }}
         className="fixed top-3 right-3 z-30 inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-3 py-1.5 text-[11px] font-semibold text-foreground hover:bg-muted/40 min-tap shadow-sm"
       >
         <LogIn className="size-3.5" /> Sign in

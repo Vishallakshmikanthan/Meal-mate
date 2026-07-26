@@ -17,6 +17,9 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProviderIndexRouteImport } from './routes/provider.index'
+import { Route as ProviderOrdersRouteImport } from './routes/provider.orders'
+import { Route as ProviderMenuRouteImport } from './routes/provider.menu'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -62,6 +65,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderIndexRoute = ProviderIndexRouteImport.update({
+  id: '/provider/',
+  path: '/provider/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderOrdersRoute = ProviderOrdersRouteImport.update({
+  id: '/provider/orders',
+  path: '/provider/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderMenuRoute = ProviderMenuRouteImport.update({
+  id: '/provider/menu',
+  path: '/provider/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
     id: '/.well-known/oauth-protected-resource',
@@ -97,6 +115,9 @@ export interface FileRoutesByFullPath {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/menu': typeof ProviderMenuRoute
+  '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -111,6 +132,9 @@ export interface FileRoutesByTo {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/menu': typeof ProviderMenuRoute
+  '/provider/orders': typeof ProviderOrdersRoute
+  '/provider': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -126,6 +150,9 @@ export interface FileRoutesById {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/menu': typeof ProviderMenuRoute
+  '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -142,6 +169,9 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/menu'
+    | '/provider/orders'
+    | '/provider/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
@@ -156,6 +186,9 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/menu'
+    | '/provider/orders'
+    | '/provider'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   id:
@@ -170,6 +203,9 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/menu'
+    | '/provider/orders'
+    | '/provider/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
@@ -185,6 +221,9 @@ export interface RootRouteChildren {
   ScanRoute: typeof ScanRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  ProviderMenuRoute: typeof ProviderMenuRoute
+  ProviderOrdersRoute: typeof ProviderOrdersRoute
+  ProviderIndexRoute: typeof ProviderIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -247,6 +286,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/': {
+      id: '/provider/'
+      path: '/provider'
+      fullPath: '/provider/'
+      preLoaderRoute: typeof ProviderIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider/orders': {
+      id: '/provider/orders'
+      path: '/provider/orders'
+      fullPath: '/provider/orders'
+      preLoaderRoute: typeof ProviderOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider/menu': {
+      id: '/provider/menu'
+      path: '/provider/menu'
+      fullPath: '/provider/menu'
+      preLoaderRoute: typeof ProviderMenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
       path: '/.well-known/oauth-protected-resource'
@@ -290,6 +350,9 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  ProviderMenuRoute: ProviderMenuRoute,
+  ProviderOrdersRoute: ProviderOrdersRoute,
+  ProviderIndexRoute: ProviderIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }

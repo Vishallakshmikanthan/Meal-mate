@@ -1,9 +1,10 @@
 import { createFileRoute, useNavigate, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2, Sparkles, GraduationCap, ChefHat } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
+import { setRole, homeForRole, type Role, getRole } from "@/lib/role";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -27,17 +28,21 @@ function AuthPage() {
   const navigate = useNavigate();
   const { next } = useSearch({ from: "/auth" });
   const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [role, setRoleLocal] = useState<Role>("student");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const returnTo = isSafeNext(next) ? next : "/";
+  useEffect(() => { setRoleLocal(getRole()); }, []);
+
+  const safeNext = isSafeNext(next) ? next : "";
+  const destination = () => safeNext || homeForRole(role);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) window.location.href = returnTo;
+      if (data.session) window.location.href = safeNext || homeForRole(getRole());
     });
-  }, [returnTo]);
+  }, [safeNext]);
 
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
@@ -48,7 +53,7 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth?next=${encodeURIComponent(returnTo)}`,
+            emailRedirectTo: `${window.location.origin}/auth?next=${encodeURIComponent(destination())}`,
           },
         });
         if (error) throw error;
@@ -56,7 +61,8 @@ function AuthPage() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        window.location.href = returnTo;
+        setRole(role);
+        window.location.href = destination();
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Auth failed");
@@ -68,8 +74,9 @@ function AuthPage() {
   async function handleGoogle() {
     setBusy(true);
     try {
+      setRole(role);
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: `${window.location.origin}/auth?next=${encodeURIComponent(returnTo)}`,
+        redirect_uri: `${window.location.origin}/auth?next=${encodeURIComponent(destination())}`,
       });
       if (result.error) {
         toast.error(result.error.message || "Google sign-in failed");
@@ -77,7 +84,7 @@ function AuthPage() {
         return;
       }
       if (result.redirected) return;
-      window.location.href = returnTo;
+      window.location.href = destination();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Google sign-in failed");
       setBusy(false);
@@ -98,6 +105,37 @@ function AuthPage() {
             Sync your meal logs across devices and connect MealOps to your AI assistant.
           </p>
         </div>
+
+        <div className="mb-4">
+          <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2 text-center">
+            I am a
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {([
+              { key: "student", label: "Student", Icon: GraduationCap, desc: "Track meals" },
+              { key: "provider", label: "Food Provider", Icon: ChefHat, desc: "Manage mess" },
+            ] as const).map(({ key, label, Icon, desc }) => {
+              const active = role === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setRoleLocal(key)}
+                  className={`rounded-2xl border p-3 text-left transition min-tap ${
+                    active
+                      ? "border-primary bg-primary/5 ring-2 ring-primary/30"
+                      : "border-border bg-card hover:bg-muted/40"
+                  }`}
+                >
+                  <Icon className={`size-4 mb-1 ${active ? "text-primary" : "text-muted-foreground"}`} />
+                  <div className="text-[13px] font-semibold">{label}</div>
+                  <div className="text-[10px] text-muted-foreground">{desc}</div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
 
         <button
           onClick={handleGoogle}
