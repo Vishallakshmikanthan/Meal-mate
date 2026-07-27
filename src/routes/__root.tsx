@@ -1,10 +1,12 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouter } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute, HeadContent, Scripts, useRouter, useLocation } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { PageTransition } from "@/components/PageTransition";
 import { Toaster } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthPill } from "@/components/AuthPill";
+import { useAuth } from "@/hooks/useAuth";
+import { Landing } from "@/components/Landing";
 
 import appCss from "../styles.css?url";
 
@@ -94,6 +96,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const router = useRouter();
+  const { pathname } = useLocation();
+  const { user, ready } = useAuth();
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_IN" || event === "SIGNED_OUT" || event === "USER_UPDATED") {
@@ -102,15 +106,24 @@ function RootComponent() {
     });
     return () => sub.subscription.unsubscribe();
   }, [router]);
+
+  const isAuthRoute = pathname === "/auth" || pathname.startsWith("/.lovable");
+  const showLanding = ready && !user && !isAuthRoute;
+  const showAppChrome = !!user && !isAuthRoute;
+
   return (
     <div className="relative min-h-dvh">
-      <AuthPill />
-      <main className="pb-28 pt-safe px-safe">
-        <PageTransition>
-          <Outlet />
-        </PageTransition>
-      </main>
-      <BottomNav />
+      {showAppChrome && <AuthPill />}
+      {showLanding ? (
+        <Landing />
+      ) : (
+        <main className={showAppChrome ? "pb-28 pt-safe px-safe" : "pt-safe px-safe"}>
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
+        </main>
+      )}
+      {showAppChrome && <BottomNav />}
       <Toaster
         position="top-center"
         toastOptions={{
