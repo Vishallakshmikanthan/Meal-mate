@@ -14,12 +14,15 @@ import { Route as PreOrderRouteImport } from './routes/pre-order'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as MealLogRouteImport } from './routes/meal-log'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as CollectRouteImport } from './routes/collect'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProviderIndexRouteImport } from './routes/provider.index'
+import { Route as ProviderQrRouteImport } from './routes/provider.qr'
 import { Route as ProviderOrdersRouteImport } from './routes/provider.orders'
 import { Route as ProviderMenuRouteImport } from './routes/provider.menu'
+import { Route as ProviderAnalyticsRouteImport } from './routes/provider.analytics'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -50,6 +53,11 @@ const McpRoute = McpRouteImport.update({
   path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectRoute = CollectRouteImport.update({
+  id: '/collect',
+  path: '/collect',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
@@ -70,6 +78,11 @@ const ProviderIndexRoute = ProviderIndexRouteImport.update({
   path: '/provider/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderQrRoute = ProviderQrRouteImport.update({
+  id: '/provider/qr',
+  path: '/provider/qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProviderOrdersRoute = ProviderOrdersRouteImport.update({
   id: '/provider/orders',
   path: '/provider/orders',
@@ -78,6 +91,11 @@ const ProviderOrdersRoute = ProviderOrdersRouteImport.update({
 const ProviderMenuRoute = ProviderMenuRouteImport.update({
   id: '/provider/menu',
   path: '/provider/menu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProviderAnalyticsRoute = ProviderAnalyticsRouteImport.update({
+  id: '/provider/analytics',
+  path: '/provider/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -108,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
+  '/collect': typeof CollectRoute
   '/mcp': typeof McpRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
@@ -115,8 +134,10 @@ export interface FileRoutesByFullPath {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/analytics': typeof ProviderAnalyticsRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/qr': typeof ProviderQrRoute
   '/provider/': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -125,6 +146,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
+  '/collect': typeof CollectRoute
   '/mcp': typeof McpRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
@@ -132,8 +154,10 @@ export interface FileRoutesByTo {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/analytics': typeof ProviderAnalyticsRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/qr': typeof ProviderQrRoute
   '/provider': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -143,6 +167,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
+  '/collect': typeof CollectRoute
   '/mcp': typeof McpRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
@@ -150,8 +175,10 @@ export interface FileRoutesById {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/analytics': typeof ProviderAnalyticsRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/qr': typeof ProviderQrRoute
   '/provider/': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -162,6 +189,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/chat'
+    | '/collect'
     | '/mcp'
     | '/meal-log'
     | '/menu'
@@ -169,8 +197,10 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/analytics'
     | '/provider/menu'
     | '/provider/orders'
+    | '/provider/qr'
     | '/provider/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -179,6 +209,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/chat'
+    | '/collect'
     | '/mcp'
     | '/meal-log'
     | '/menu'
@@ -186,8 +217,10 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/analytics'
     | '/provider/menu'
     | '/provider/orders'
+    | '/provider/qr'
     | '/provider'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -196,6 +229,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/chat'
+    | '/collect'
     | '/mcp'
     | '/meal-log'
     | '/menu'
@@ -203,8 +237,10 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/analytics'
     | '/provider/menu'
     | '/provider/orders'
+    | '/provider/qr'
     | '/provider/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -214,6 +250,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   ChatRoute: typeof ChatRoute
+  CollectRoute: typeof CollectRoute
   McpRoute: typeof McpRoute
   MealLogRoute: typeof MealLogRoute
   MenuRoute: typeof MenuRoute
@@ -221,8 +258,10 @@ export interface RootRouteChildren {
   ScanRoute: typeof ScanRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  ProviderAnalyticsRoute: typeof ProviderAnalyticsRoute
   ProviderMenuRoute: typeof ProviderMenuRoute
   ProviderOrdersRoute: typeof ProviderOrdersRoute
+  ProviderQrRoute: typeof ProviderQrRoute
   ProviderIndexRoute: typeof ProviderIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -265,6 +304,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collect': {
+      id: '/collect'
+      path: '/collect'
+      fullPath: '/collect'
+      preLoaderRoute: typeof CollectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/chat': {
       id: '/chat'
       path: '/chat'
@@ -293,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/qr': {
+      id: '/provider/qr'
+      path: '/provider/qr'
+      fullPath: '/provider/qr'
+      preLoaderRoute: typeof ProviderQrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/provider/orders': {
       id: '/provider/orders'
       path: '/provider/orders'
@@ -305,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/provider/menu'
       fullPath: '/provider/menu'
       preLoaderRoute: typeof ProviderMenuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/provider/analytics': {
+      id: '/provider/analytics'
+      path: '/provider/analytics'
+      fullPath: '/provider/analytics'
+      preLoaderRoute: typeof ProviderAnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.well-known/oauth-protected-resource': {
@@ -342,6 +402,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   ChatRoute: ChatRoute,
+  CollectRoute: CollectRoute,
   McpRoute: McpRoute,
   MealLogRoute: MealLogRoute,
   MenuRoute: MenuRoute,
@@ -350,8 +411,10 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  ProviderAnalyticsRoute: ProviderAnalyticsRoute,
   ProviderMenuRoute: ProviderMenuRoute,
   ProviderOrdersRoute: ProviderOrdersRoute,
+  ProviderQrRoute: ProviderQrRoute,
   ProviderIndexRoute: ProviderIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
