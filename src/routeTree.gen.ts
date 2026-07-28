@@ -18,6 +18,7 @@ import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProviderIndexRouteImport } from './routes/provider.index'
+import { Route as ProviderQrRouteImport } from './routes/provider.qr'
 import { Route as ProviderOrdersRouteImport } from './routes/provider.orders'
 import { Route as ProviderMenuRouteImport } from './routes/provider.menu'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -70,6 +71,11 @@ const ProviderIndexRoute = ProviderIndexRouteImport.update({
   path: '/provider/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderQrRoute = ProviderQrRouteImport.update({
+  id: '/provider/qr',
+  path: '/provider/qr',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProviderOrdersRoute = ProviderOrdersRouteImport.update({
   id: '/provider/orders',
   path: '/provider/orders',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/qr': typeof ProviderQrRoute
   '/provider/': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/qr': typeof ProviderQrRoute
   '/provider': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
+  '/provider/qr': typeof ProviderQrRoute
   '/provider/': typeof ProviderIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -171,6 +180,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/provider/menu'
     | '/provider/orders'
+    | '/provider/qr'
     | '/provider/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/provider/menu'
     | '/provider/orders'
+    | '/provider/qr'
     | '/provider'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/provider/menu'
     | '/provider/orders'
+    | '/provider/qr'
     | '/provider/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
@@ -223,6 +235,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   ProviderMenuRoute: typeof ProviderMenuRoute
   ProviderOrdersRoute: typeof ProviderOrdersRoute
+  ProviderQrRoute: typeof ProviderQrRoute
   ProviderIndexRoute: typeof ProviderIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -293,6 +306,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/qr': {
+      id: '/provider/qr'
+      path: '/provider/qr'
+      fullPath: '/provider/qr'
+      preLoaderRoute: typeof ProviderQrRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/provider/orders': {
       id: '/provider/orders'
       path: '/provider/orders'
@@ -352,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   ProviderMenuRoute: ProviderMenuRoute,
   ProviderOrdersRoute: ProviderOrdersRoute,
+  ProviderQrRoute: ProviderQrRoute,
   ProviderIndexRoute: ProviderIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
