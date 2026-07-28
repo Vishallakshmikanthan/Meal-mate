@@ -22,6 +22,7 @@ import { Route as ProviderIndexRouteImport } from './routes/provider.index'
 import { Route as ProviderQrRouteImport } from './routes/provider.qr'
 import { Route as ProviderOrdersRouteImport } from './routes/provider.orders'
 import { Route as ProviderMenuRouteImport } from './routes/provider.menu'
+import { Route as ProviderAnalyticsRouteImport } from './routes/provider.analytics'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -92,6 +93,11 @@ const ProviderMenuRoute = ProviderMenuRouteImport.update({
   path: '/provider/menu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProviderAnalyticsRoute = ProviderAnalyticsRouteImport.update({
+  id: '/provider/analytics',
+  path: '/provider/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
     id: '/.well-known/oauth-protected-resource',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/analytics': typeof ProviderAnalyticsRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
   '/provider/qr': typeof ProviderQrRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/analytics': typeof ProviderAnalyticsRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
   '/provider/qr': typeof ProviderQrRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/scan': typeof ScanRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/provider/analytics': typeof ProviderAnalyticsRoute
   '/provider/menu': typeof ProviderMenuRoute
   '/provider/orders': typeof ProviderOrdersRoute
   '/provider/qr': typeof ProviderQrRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/analytics'
     | '/provider/menu'
     | '/provider/orders'
     | '/provider/qr'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/analytics'
     | '/provider/menu'
     | '/provider/orders'
     | '/provider/qr'
@@ -226,6 +237,7 @@ export interface FileRouteTypes {
     | '/scan'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/provider/analytics'
     | '/provider/menu'
     | '/provider/orders'
     | '/provider/qr'
@@ -246,6 +258,7 @@ export interface RootRouteChildren {
   ScanRoute: typeof ScanRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  ProviderAnalyticsRoute: typeof ProviderAnalyticsRoute
   ProviderMenuRoute: typeof ProviderMenuRoute
   ProviderOrdersRoute: typeof ProviderOrdersRoute
   ProviderQrRoute: typeof ProviderQrRoute
@@ -347,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProviderMenuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/provider/analytics': {
+      id: '/provider/analytics'
+      path: '/provider/analytics'
+      fullPath: '/provider/analytics'
+      preLoaderRoute: typeof ProviderAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
       path: '/.well-known/oauth-protected-resource'
@@ -391,6 +411,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  ProviderAnalyticsRoute: ProviderAnalyticsRoute,
   ProviderMenuRoute: ProviderMenuRoute,
   ProviderOrdersRoute: ProviderOrdersRoute,
   ProviderQrRoute: ProviderQrRoute,
