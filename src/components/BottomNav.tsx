@@ -1,12 +1,12 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, CalendarDays, Camera, ClipboardList, MessageCircle, LayoutDashboard, Utensils, Package } from "lucide-react";
+import { Home, CalendarDays, QrCode, ClipboardList, MessageCircle, LayoutDashboard, Utensils, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRole } from "@/hooks/useRole";
 
 const studentTabs = [
   { to: "/", label: "Home", icon: Home },
   { to: "/menu", label: "Menu", icon: CalendarDays },
-  { to: "/scan", label: "Scan", icon: Camera, accent: true },
+  { to: "/collect", label: "Collect", icon: QrCode, accent: true },
   { to: "/pre-order", label: "Pre-Order", icon: ClipboardList },
   { to: "/chat", label: "Chat", icon: MessageCircle },
 ] as const;
@@ -14,9 +14,11 @@ const studentTabs = [
 const providerTabs = [
   { to: "/provider", label: "Overview", icon: LayoutDashboard },
   { to: "/provider/menu", label: "Menu", icon: Utensils },
-  { to: "/provider/orders", label: "Orders", icon: Package, accent: true },
-  { to: "/chat", label: "Chat", icon: MessageCircle },
+  { to: "/provider/qr", label: "QR", icon: QrCode, accent: true },
+  { to: "/provider/orders", label: "Orders", icon: ClipboardList },
+  { to: "/provider/analytics", label: "Insights", icon: BarChart3 },
 ] as const;
+
 
 export function BottomNav() {
   const { pathname } = useLocation();
