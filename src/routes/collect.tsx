@@ -48,6 +48,7 @@ function CollectPage() {
   const [selected, setSelected] = useState<number[]>([]);
   const [done, setDone] = useState(false);
   const [active, setActive] = useState<QRSession[]>([]);
+  const [tab, setTab] = useState<"qr" | "food">("qr");
 
   useEffect(() => {
     const upd = () => setActive(getActiveSessions());
@@ -144,13 +145,52 @@ function CollectPage() {
         </div>
         <h1 className="font-display text-3xl leading-tight">Collect your meal</h1>
         <p className="text-sm text-muted-foreground mt-0.5">
-          Scan the counter QR or enter the code shown at the serving counter.
+          One camera for everything — scan the counter QR, or scan your plate for nutrition.
         </p>
       </header>
 
       {!session && (
         <>
+          <div className="grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl bg-card border border-border">
+            {([
+              { id: "qr" as const, label: "QR scan", icon: QrCode },
+              { id: "food" as const, label: "Food scan", icon: Sparkles },
+            ]).map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                onClick={() => setTab(id)}
+                className={`py-2.5 rounded-xl text-sm font-semibold inline-flex items-center justify-center gap-1.5 transition min-tap ${
+                  tab === id
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-muted/50"
+                }`}
+              >
+                <Icon className="size-4" /> {label}
+              </button>
+            ))}
+          </div>
+
+          {tab === "food" && (
+            <section className="rounded-2xl bg-card border border-border p-4">
+              <FoodScanPanel />
+            </section>
+          )}
+
+          {tab === "qr" && (
           <section className="rounded-2xl bg-card border border-border p-4 space-y-3">
+            <CameraQrScanner
+              onResult={(value) => {
+                setCode(value);
+                tryVerify(value);
+              }}
+            />
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-border" />
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                or enter code
+              </span>
+              <div className="h-px flex-1 bg-border" />
+            </div>
             <input
               value={code}
               onChange={(e) => setCode(e.target.value.toUpperCase())}
