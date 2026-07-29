@@ -210,8 +210,9 @@ function CollectPage() {
               </p>
             )}
           </section>
+          )}
 
-          {active.length > 0 && (
+          {tab === "qr" && active.length > 0 && (
             <section className="rounded-2xl bg-card border border-border p-4">
               <h2 className="font-display text-lg mb-2">Live at the counter</h2>
               <div className="space-y-2">
