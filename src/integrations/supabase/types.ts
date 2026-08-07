@@ -59,6 +59,105 @@ export type Database = {
         }
         Relationships: []
       }
+      mission_completions: {
+        Row: {
+          created_at: string
+          id: string
+          log_date: string
+          mission_key: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          log_date?: string
+          mission_key: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          log_date?: string
+          mission_key?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          badge_key: string
+          earned_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_key: string
+          earned_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_key?: string
+          earned_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_stats: {
+        Row: {
+          current_streak: number
+          last_active_date: string | null
+          level: number
+          longest_streak: number
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          current_streak?: number
+          last_active_date?: string | null
+          level?: number
+          longest_streak?: number
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          current_streak?: number
+          last_active_date?: string | null
+          level?: number
+          longest_streak?: number
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
+      water_logs: {
+        Row: {
+          glasses: number
+          id: string
+          log_date: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          glasses?: number
+          id?: string
+          log_date?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          glasses?: number
+          id?: string
+          log_date?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
