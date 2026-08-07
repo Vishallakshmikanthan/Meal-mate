@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, CalendarDays, QrCode, ClipboardList, MessageCircle, LayoutDashboard, Utensils, BarChart3 } from "lucide-react";
+import { Home, CalendarDays, QrCode, MessageCircle, LayoutDashboard, Utensils, BarChart3, HeartPulse, ClipboardList } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRole } from "@/hooks/useRole";
 
@@ -7,7 +7,7 @@ const studentTabs = [
   { to: "/", label: "Home", icon: Home },
   { to: "/menu", label: "Menu", icon: CalendarDays },
   { to: "/collect", label: "Collect", icon: QrCode, accent: true },
-  { to: "/pre-order", label: "Pre-Order", icon: ClipboardList },
+  { to: "/health", label: "Health", icon: HeartPulse },
   { to: "/chat", label: "Chat", icon: MessageCircle },
 ] as const;
 
