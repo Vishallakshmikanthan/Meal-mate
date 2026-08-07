@@ -14,6 +14,7 @@ import { Route as PreOrderRouteImport } from './routes/pre-order'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as MealLogRouteImport } from './routes/meal-log'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as HealthRouteImport } from './routes/health'
 import { Route as CollectRouteImport } from './routes/collect'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -51,6 +52,11 @@ const MealLogRoute = MealLogRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthRoute = HealthRouteImport.update({
+  id: '/health',
+  path: '/health',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CollectRoute = CollectRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/collect': typeof CollectRoute
+  '/health': typeof HealthRoute
   '/mcp': typeof McpRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/collect': typeof CollectRoute
+  '/health': typeof HealthRoute
   '/mcp': typeof McpRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
@@ -168,6 +176,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/chat': typeof ChatRoute
   '/collect': typeof CollectRoute
+  '/health': typeof HealthRoute
   '/mcp': typeof McpRoute
   '/meal-log': typeof MealLogRoute
   '/menu': typeof MenuRoute
@@ -190,6 +199,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/chat'
     | '/collect'
+    | '/health'
     | '/mcp'
     | '/meal-log'
     | '/menu'
@@ -210,6 +220,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/chat'
     | '/collect'
+    | '/health'
     | '/mcp'
     | '/meal-log'
     | '/menu'
@@ -230,6 +241,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/chat'
     | '/collect'
+    | '/health'
     | '/mcp'
     | '/meal-log'
     | '/menu'
@@ -251,6 +263,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ChatRoute: typeof ChatRoute
   CollectRoute: typeof CollectRoute
+  HealthRoute: typeof HealthRoute
   McpRoute: typeof McpRoute
   MealLogRoute: typeof MealLogRoute
   MenuRoute: typeof MenuRoute
@@ -302,6 +315,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/health': {
+      id: '/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof HealthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collect': {
@@ -403,6 +423,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ChatRoute: ChatRoute,
   CollectRoute: CollectRoute,
+  HealthRoute: HealthRoute,
   McpRoute: McpRoute,
   MealLogRoute: MealLogRoute,
   MenuRoute: MenuRoute,
